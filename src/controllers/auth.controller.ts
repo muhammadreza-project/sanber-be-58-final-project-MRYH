@@ -64,28 +64,22 @@ export default {
       }
     },
     async me(req: Request, res: Response) {
-        const userId = (req as IReqUser).user.id;
-        try {
-          const user = await UserModel.findById(userId);
-          console.log(userId, user);
-          if (!user) {
-            return res.status(404).json({
-              message: "User not found",
-            });
-          }
-          res.status(200).json({
-            message: "User details",
-            data: user,
-          });
-        } catch (error) {
-          const _err = error as Error;
-      
-          res.status(500).json({
-            message: "Error getting user details",
-            data: _err.message,
-          });
-        }
-      },
+      const userId = (req as IReqUser).user.id;
+      try {
+        const user = await UserModel.findById(userId);
+        res.status(200).json({
+          message: "User details",
+          data: user,
+        });
+      } catch (error) {
+        const _err = error as Error;
+  
+        res.status(500).json({
+          message: "Error getting user details",
+          data: _err.message,
+        });
+      }
+    },
     async login(req: Request, res: Response) {
       const { email, password } = req.body;
       try {
@@ -98,7 +92,7 @@ export default {
         if (!userByEmail) {
           throw new Error("User not found");
         }
-
+  
         const decryptPassword = decrypt(SECRET, userByEmail.password);
   
         if (password !== decryptPassword) {
@@ -106,7 +100,7 @@ export default {
         }
   
         const token = jwt.sign(
-          { id: userByEmail._id, role: userByEmail.role },
+          { id: userByEmail._id, roles: userByEmail.roles },
           SECRET,
           {
             expiresIn: "6h",
@@ -134,7 +128,7 @@ export default {
       }
     },
     async register(req: Request, res: Response) {
-      const { fullName, username, email, password } = req.body;
+      const { fullName, username, email, password, roles = ["user"] } = req.body;
       try {
         await validateRegisterSchema.validate({
           fullName,
@@ -142,13 +136,13 @@ export default {
           email,
           password,
         });
-        
+  
         const user = await UserModel.create({
           fullName,
           username,
           email,
           password,
-          role: "user", // default role
+          roles,
         });
         res.json({
           message: "User registered successfully",

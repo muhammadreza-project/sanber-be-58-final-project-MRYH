@@ -31,6 +31,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
   (req as IReqUser).user = {
     id: user.id,
     role: user.role,
+    roles: [user.role]
   };
 
   next();
