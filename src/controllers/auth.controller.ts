@@ -65,6 +65,14 @@ export default {
     },
     async me(req: Request, res: Response) {
       const userId = (req as IReqUser).user.id;
+      const userRole = (req as IReqUser).user.roles[0]; // assuming roles is an array with a single element
+    
+      if (userRole !== 'admin') {
+        return res.status(403).json({
+          message: "Forbidden",
+        });
+      }
+    
       try {
         const user = await UserModel.findById(userId);
         res.status(200).json({
@@ -73,7 +81,6 @@ export default {
         });
       } catch (error) {
         const _err = error as Error;
-  
         res.status(500).json({
           message: "Error getting user details",
           data: _err.message,
