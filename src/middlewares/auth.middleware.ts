@@ -1,9 +1,15 @@
-import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
-import { SECRET } from "@/utils/env";
-import { IReqUser } from "@/utils/interfaces";
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import { SECRET } from '@/utils/env';
 
-export default (req: Request, res: Response, next: NextFunction) => {
+export interface IRequest extends Request {
+  user?: {
+    id: string;
+    roles: string[];
+  };
+}
+
+export default (req: IRequest, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
 
   if (!token) {
@@ -28,7 +34,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     });
   }
 
-  (req as IReqUser).user = {
+  req.user = {
     id: user.id,
     roles: [user.role],
   };
