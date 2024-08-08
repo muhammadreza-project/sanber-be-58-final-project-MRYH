@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import * as Yup from "yup";
 
 import jwt from "jsonwebtoken";
-import UserModel from "@/models/user.models";
-import { decrypt } from "@/utils/encryption";
-import { SECRET } from "@/utils/env";
-import { IReqUser } from "@/utils/interfaces";
+import UserModel from "../models/user.models";
+import { decrypt } from "../utils/encryption";
+import { SECRET } from "../utils/env";
+import { IReqUser } from "../utils/interfaces";
 
 const validateRegisterSchema = Yup.object().shape({
     fullName: Yup.string().required(),

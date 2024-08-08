@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { SECRET } from '@/utils/env';
+import { SECRET } from '../utils/env';
 
 export interface IRequest extends Request {
   user?: {
