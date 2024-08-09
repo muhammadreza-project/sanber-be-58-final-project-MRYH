@@ -1,7 +1,7 @@
 # Proyek Manajemen Pesanan
 
 ## URL Deployment
-Aplikasi ini dapat diakses di [URL_DEPLOY](URL_DEPLOY).
+Aplikasi ini dapat diakses di [https://vercel.com/muhammad-reza-yanuar-hamdanis-projects/sanber-be-58-final-project-mryh2/DxohBPAEbgt3bsHMMxvq2B9qC5qF](https://sanber-be-58-final-project-mryh2.vercel.app/).
 
 ## Daftar Endpoint
 
