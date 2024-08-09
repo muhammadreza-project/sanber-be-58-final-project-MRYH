@@ -7,8 +7,8 @@
     "strict": true,
     "esModuleInterop": true,
     "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    }
+    // "paths": {
+    //   "@/*": ["*"]
+    // }
   }
 }
