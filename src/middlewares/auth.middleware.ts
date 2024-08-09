@@ -26,7 +26,9 @@ export default (req: IRequest, res: Response, next: NextFunction) => {
     });
   }
 
-  const user = jwt.verify(accessToken, SECRET) as { id: string; role: string };
+  const user = jwt.verify(accessToken, SECRET) as {
+    roles: string[]; id: string;
+};
 
   if (!user) {
     return res.status(401).json({
@@ -36,7 +38,7 @@ export default (req: IRequest, res: Response, next: NextFunction) => {
 
   req.user = {
     id: user.id,
-    roles: [user.role],
+    roles: user.roles,
   };
 
   next();

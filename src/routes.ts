@@ -5,7 +5,7 @@ import productsController from "./controllers/products.controller";
 import categoriesController from "./controllers/categories.controller";
 import authController from "./controllers/auth.controller";
 import authMiddleware from "./middlewares/auth.middleware";
-import aclMiddlware from "./middlewares/acl.middleware";
+import aclMiddleware from "./middlewares/acl.middleware";
 import OrderController from "./controllers/order.controller";
 
 const router = express.Router();
@@ -31,7 +31,7 @@ router.post("/uploads", uploadMiddleware.multiple, uploadController.multiple);
 // Authentication
 router.post("/auth/login", authController.login);
 router.post("/auth/register", authController.register);
-router.get("/auth/me", authMiddleware, authController.me); // Autentikasi untuk mendapatkan info pengguna
+router.get("/auth/me", authMiddleware, aclMiddleware(["admin"]), authController.me);
 router.put("/auth/profile", authMiddleware, authController.profile);
 
 // CRUD Orders
